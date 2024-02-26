@@ -2,19 +2,18 @@ const express = require("express");
 
 const router = express.Router();
 
-const Model = require("../models/task");
+const { Todo } = require("../models/task");
 const { verifyToken } = require("../validation");
 
 module.exports = router;
 
 //Post Method
 router.post("/post", verifyToken, async (req, res) => {
-  const data = new Model({
-    name: req.body.name,
-    description: req.body.description,
-    dueDate: req.body.dueDate,
+  const data = new Todo({
+    title: req.body.title,
+    status: req.body.status,
+    label: req.body.label,
     priority: req.body.priority,
-    isCompleted: req.body.completed,
   });
   try {
     const dataToSave = await data.save();
@@ -27,7 +26,7 @@ router.post("/post", verifyToken, async (req, res) => {
 //Get all Method
 router.get("/getAll", async (req, res) => {
   try {
-    const data = await Model.find();
+    const data = await Todo.find();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -37,7 +36,7 @@ router.get("/getAll", async (req, res) => {
 //Get by ID Method
 router.get("/getOne/:id", async (req, res) => {
   try {
-    const data = await Model.findById(req.params.id);
+    const data = await Todo.findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -51,7 +50,7 @@ router.put("/update/:id", verifyToken, async (req, res) => {
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await Model.findByIdAndUpdate(id, updatedData, options);
+    const result = await Todo.findByIdAndUpdate(id, updatedData, options);
 
     res.send(result);
   } catch (error) {
@@ -63,8 +62,8 @@ router.put("/update/:id", verifyToken, async (req, res) => {
 router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await Model.findByIdAndDelete(id);
-    res.send(`Document with ${data.name} has been deleted..`);
+    const data = await Todo.findByIdAndDelete(id);
+    res.send(`Document with ${data.title} has been deleted..`);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

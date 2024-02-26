@@ -19,21 +19,19 @@ components:
       properties:
         id:
           type: string
-        name:
+        title:
           type: string
-        description:
+        status:
           type: string
-        dueDate:
-          type: Date
+        label:
+          type: string
         priority:
           type: string
-        isCompleted:
-          type: boolean
 
     User:
       type: object
       properties:
-        name:
+        title:
           type: string
         email:
           type: string
