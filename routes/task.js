@@ -10,7 +10,7 @@ module.exports = router;
 //Post Method
 router.post("/post", verifyToken, async (req, res) => {
   const data = new Model({
-    task: req.body.task,
+    name: req.body.name,
     description: req.body.description,
     dueDate: req.body.dueDate,
     priority: req.body.priority,
@@ -45,7 +45,7 @@ router.get("/getOne/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.patch("/update/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;

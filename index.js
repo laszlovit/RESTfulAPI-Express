@@ -3,6 +3,14 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+// Swagger dependencies
+const swaggerUi = require("swagger-ui-express");
+const yaml = require("yamljs");
+
+// Setup Swagger
+const swaggerDefinition = yaml.load("./swagger.yaml");
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+
 app.use(express.json());
 
 app.listen(3000, () => {
