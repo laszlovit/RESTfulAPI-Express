@@ -3,11 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 const Model = require("../models/task");
+const { verifyToken } = require("../validation");
 
 module.exports = router;
 
 //Post Method
-router.post("/post", async (req, res) => {
+router.post("/post", verifyToken, async (req, res) => {
   const data = new Model({
     task: req.body.task,
     description: req.body.description,
@@ -44,7 +45,7 @@ router.get("/getOne/:id", async (req, res) => {
 });
 
 //Update by ID Method
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;
@@ -59,7 +60,7 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 //Delete by ID Method
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
     const data = await Model.findByIdAndDelete(id);

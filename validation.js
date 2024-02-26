@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
 
 // validating registration
 const registerValidation = (data) => {
@@ -20,5 +21,18 @@ const loginValidation = (data) => {
 };
 
 // logic to verify our token (JWT)
+const verifyToken = (req, res, next) => {
+  const token = req.header("auth-token");
 
-module.exports = { registerValidation, loginValidation };
+  if (!token) return res.status(401).json({ error: "Access Denied" });
+
+  try {
+    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    req.user = verified;
+    next();
+  } catch (error) {
+    return res.status(400).json({ error: "Invalid Token" });
+  }
+};
+
+module.exports = { registerValidation, loginValidation, verifyToken };
