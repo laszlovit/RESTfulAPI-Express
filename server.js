@@ -32,6 +32,10 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
+app.get("/api/welcome", (req, res) => {
+  res.send("Welcome to the Task Manager API");
+});
+
 const taskRoutes = require("./routes/task");
 app.use("/api/tasks", taskRoutes);
 

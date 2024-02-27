@@ -6,6 +6,8 @@ info:
 servers:
   - url: http://localhost:3000/api/
     description: Localhost development server
+  - url: https://restfulapi-node-express-mongodb.onrender.com/api/
+    description: Render production server
 components:
   securitySchemes:
     ApiKeyAuth: # arbitrary name for the security scheme
