@@ -1,6 +1,6 @@
 # ToDo App RESTful API
 
-This repository contains a simple ToDo application's RESTful API built with Express.js. It facilitates communication between the client and server, demonstrating best practices in web application development.
+This repository contains a simple ToDo application's RESTful API built with Express.js.
 
 ## Features
 
