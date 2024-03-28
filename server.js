@@ -14,7 +14,10 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://react-restful-kanban.vercel.app/",
+    ],
   })
 );
 app.use(express.json());
