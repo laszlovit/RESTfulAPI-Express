@@ -18,6 +18,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://res-tful-api-node-express-mongo-db.vercel.app/",
+      "https://restfulapi-node-express-mongodb.onrender.com",
     ],
   })
 );
