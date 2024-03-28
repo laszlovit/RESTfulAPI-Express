@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://react-restful-kanban.vercel.app/",
+      "https://react-restful-kanban.vercel.app",
     ],
   })
 );
