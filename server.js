@@ -15,7 +15,10 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://res-tful-api-node-express-mongo-db.vercel.app/",
+    ],
   })
 );
 app.use(express.json());
