@@ -28,7 +28,7 @@ const jwtCheck = auth({
 
 // Apply JWT check to all routes except /api/tasks/getAll
 app.use((req, res, next) => {
-  if (req.path === "/api/tasks/getAll") {
+  if (req.path === "/api/tasks/getAll" || req.path === "/favicon.ico") {
     next();
   } else {
     jwtCheck(req, res, next);
@@ -59,7 +59,7 @@ app.get("/api/welcome", (req, res) => {
 });
 
 const taskRoutes = require("./routes/task");
-app.use("/api/tasks", jwtCheck, taskRoutes); // Apply JWT check to task routes
+app.use("/api/tasks", taskRoutes); // Apply taskRoutes to /api/tasks
 
 const authRoutes = require("./routes/auth");
 app.use("/api/user", authRoutes);
