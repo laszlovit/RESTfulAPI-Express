@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const { auth } = require("express-oauth2-jwt-bearer");
 
 const app = express();
 
@@ -15,29 +14,10 @@ app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://res-tful-api-node-express-mongo-db.vercel.app/",
-      "https://restfulapi-node-express-mongodb.onrender.com",
-    ],
+    origin: ["http://localhost:5173"],
   })
 );
 app.use(express.json());
-
-const jwtCheck = auth({
-  audience: "express-backend-kanban",
-  issuerBaseURL: "https://laszlovitkai.eu.auth0.com/",
-  tokenSigningAlg: "RS256",
-});
-
-// Apply JWT check to all routes except /api/tasks/getAll
-app.use((req, res, next) => {
-  if (req.path === "/api/tasks/getAll" || req.path === "/favicon.ico") {
-    next();
-  } else {
-    jwtCheck(req, res, next);
-  }
-});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

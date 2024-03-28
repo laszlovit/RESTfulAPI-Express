@@ -2,10 +2,18 @@ const express = require("express");
 const router = express.Router();
 const { Todo } = require("../models/task");
 
+const { auth } = require("express-oauth2-jwt-bearer");
+
+const jwtCheck = auth({
+  audience: "express-backend-kanban",
+  issuerBaseURL: "https://laszlovitkai.eu.auth0.com/",
+  tokenSigningAlg: "RS256",
+});
+
 module.exports = router;
 
 // Post Method
-router.post("/post", async (req, res) => {
+router.post("/post", jwtCheck, async (req, res) => {
   try {
     const data = new Todo({
       title: req.body.title,
@@ -39,7 +47,7 @@ router.get("/getOne/:id", async (req, res) => {
 });
 
 // Update by ID Method (Modified for Column Updates)
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", jwtCheck, async (req, res) => {
   try {
     const id = req.params.id;
     const updatedColumn = req.body.column;
@@ -62,7 +70,7 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // Delete by ID Method
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", jwtCheck, async (req, res) => {
   try {
     const id = req.params.id;
     const data = await Todo.findByIdAndDelete(id);
