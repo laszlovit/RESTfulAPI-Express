@@ -5,20 +5,9 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: {
+  column: {
     type: String,
-    enum: ["Todo", "In Progress", "Backlog", "Done", "Cancelled"],
-    default: "Todo",
-  },
-  label: {
-    type: String,
-    enum: ["Bug", "Documentation", "Feature"],
-    default: "Feature",
-  },
-  priority: {
-    type: String,
-    enum: ["High", "Medium", "Low"],
-    default: "Medium",
+    default: "Backlog",
   },
 });
 
@@ -26,5 +15,4 @@ const Todo = mongoose.model("Todo", todoSchema);
 
 module.exports = {
   Todo,
-  todoSchema,
 };
